@@ -4,6 +4,11 @@ module Nexop
       def initialize
         super("ssh-userauth")
       end
+
+      def tick(payload)
+        UserauthRequest.parse(payload)
+        return UserauthSuccess.new
+      end
     end
   end
 end
