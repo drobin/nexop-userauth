@@ -29,8 +29,18 @@ module Nexop
       end
 
       def tick(payload)
-        UserauthRequest.parse(payload)
-        return UserauthSuccess.new
+        request = UserauthRequest.parse(payload)
+        log.debug("UserauthRequest received: " +
+                  "#{request.user_name}, " +
+                  "#{request.service_name}, " +
+                  "#{request.method_name}")
+
+        response = Nexop::Message::Disconnect.new(
+          :reason_code => Nexop::Message::Disconnect::Reason::NO_MORE_AUTH_METHODS_AVAILABLE,
+          :description => "authentication method '#{request.method_name}' is not supported"
+        )
+        log.debug("Disconnect send [#{response.reason_code}, #{response.description}]")
+        return response
       end
     end
   end
