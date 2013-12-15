@@ -24,7 +24,7 @@ module Nexop
       # @return [String] Authentication method
       add_field(:method_name, type: :string)
 
-      add_field(:false_value, type: :boolean, const: false, if: Proc.new{ |msg| msg.method_name == "password" })
+      add_field(:false_value, type: :boolean, default: false, if: Proc.new{ |msg| msg.method_name == "password" })
       add_field(:password, type: :string, if: Proc.new{ |msg| msg.method_name == "password" })
     end
   end
