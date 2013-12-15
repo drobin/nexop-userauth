@@ -7,6 +7,12 @@ describe Nexop::Userauth::Service do
     service.name.should == "ssh-userauth"
   end
 
+  context "available_methods" do
+    it "is empty" do
+      service.available_methods.should be_empty
+    end
+  end
+
   context "tick" do
     let(:request) { Nexop::Userauth::UserauthRequest.new(:user_name => "un", :service_name => "sn", :method_name => "mn") }
 
